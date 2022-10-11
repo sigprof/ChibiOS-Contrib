@@ -160,11 +160,8 @@ void st_lld_init(void) {
  */
 void st_lld_serve_interrupt(void) {
 #if OSAL_ST_MODE == OSAL_ST_MODE_FREERUNNING
-  uint32_t ris;
-  sn32_ct_t *ct = SN32_ST_TIM;
-
-  ris  = ct->RIS;
-  if ((ris & mskCT16_MR0IF) != 0U)
+  SN32_ST_TIM->IC = mskCT16_MR0IC;
+  SN32_ST_TIM->MCTRL &= ~mskCT16_MR0IE_EN;
 #endif
   {
     osalSysLockFromISR();

@@ -167,6 +167,8 @@ static inline void st_lld_stop_alarm(void) {
  */
 static inline void st_lld_set_alarm(systime_t abstime) {
   SN32_ST_TIM->MR0 = (uint32_t)abstime;
+  SN32_ST_TIM->IC &= 0x1FFFFFF;
+  SN32_ST_TIM->MCTRL |= mskCT16_MR0IE_EN;
 }
 
 /**
