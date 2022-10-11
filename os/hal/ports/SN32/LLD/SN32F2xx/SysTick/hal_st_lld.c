@@ -155,11 +155,14 @@ void st_lld_init(void) {
 #endif /* OSAL_ST_MODE == OSAL_ST_MODE_PERIODIC */
 }
 
+uint32_t st_irq_count;
+
 /**
  * @brief   IRQ handling code.
  */
 void st_lld_serve_interrupt(void) {
 #if OSAL_ST_MODE == OSAL_ST_MODE_FREERUNNING
+  ++st_irq_count;
   SN32_ST_TIM->IC = mskCT16_MR0IC;
   SN32_ST_TIM->MCTRL &= ~mskCT16_MR0IE_EN;
 #endif
